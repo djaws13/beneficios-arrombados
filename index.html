@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Benefícios Arrombados</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 600px;
+    }
+
+    input {
+      padding: 15px;
+      width: 100%;
+      font-size: 16px;
+      margin-top: 20px;
+      border: none;
+    }
+
+    button {
+      padding: 15px;
+      margin-top: 10px;
+      width: 100%;
+      background: #ff4d4d;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .output {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #ffcc00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tradutor de Benefícios Corporativos</h1>
+    <p>Digite um benefício e veja a verdade 👇</p>
+
+    <input id="input" placeholder="Ex: 1h de day off no aniversário" />
+    <button onclick="gerar()">Traduzir</button>
+
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    function gerar() {
+      const input = document.getElementById("input").value;
+
+      const respostas = [
+        "Isso aqui é basicamente migalha com branding.",
+        "A empresa quer parecer legal sem gastar dinheiro.",
+        "Você continua sobrecarregado, mas com um mimo simbólico.",
+        "Um benefício que custa zero, mas rende post no LinkedIn.",
+        "Isso aqui é só para parecer que existe cultura.",
+        "Menos custo, mais storytelling."
+      ];
+
+      const random = respostas[Math.floor(Math.random() * respostas.length)];
+
+      document.getElementById("output").innerText =
+        `"${input}"\n\n👉 Tradução: ${random}`;
+    }
+  </script>
+</body>
+</html>
