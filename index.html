@@ -13,16 +13,13 @@
     :root {
       --bg: #f3f4f6;
       --surface: #ffffff;
-      --surface-soft: #f8fafc;
       --border: #d9dde3;
       --text: #111827;
       --muted: #6b7280;
       --blue: #0a66c2;
       --blue-dark: #004182;
-      --shadow: 0 2px 8px rgba(15, 23, 42, 0.06), 0 12px 28px rgba(15, 23, 42, 0.04);
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --radius-sm: 999px;
+      --chip-border: #d1d5db;
+      --shadow: 0 2px 8px rgba(15, 23, 42, 0.05), 0 12px 28px rgba(15, 23, 42, 0.04);
     }
 
     body {
@@ -33,117 +30,105 @@
     }
 
     .topbar {
-      width: 100%;
+      height: 62px;
       background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
       border-bottom: 1px solid #e5e7eb;
-      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 28px;
-      position: sticky;
-      top: 0;
-      z-index: 20;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 700;
       font-size: 16px;
+      font-weight: 700;
     }
 
-    .brand-badge {
+    .brand-icon {
       width: 38px;
       height: 38px;
       border-radius: 12px;
-      background: var(--blue);
-      color: white;
       display: grid;
       place-items: center;
+      background: var(--blue);
+      color: white;
       font-size: 18px;
-      font-weight: 800;
-      box-shadow: 0 8px 20px rgba(10, 102, 194, 0.22);
+      box-shadow: 0 8px 20px rgba(10, 102, 194, 0.18);
     }
 
-    .share-top {
+    .top-action {
       color: #4b5563;
       font-size: 15px;
       display: flex;
       align-items: center;
       gap: 8px;
-      user-select: none;
     }
 
     .page {
-      max-width: 900px;
+      max-width: 980px;
       margin: 0 auto;
-      padding: 56px 20px 72px;
+      padding: 56px 20px 80px;
     }
 
     .hero {
       text-align: center;
-      margin-bottom: 34px;
+      margin-bottom: 30px;
     }
 
     h1 {
       margin: 0;
       font-size: 52px;
-      line-height: 1.04;
+      line-height: 1.02;
       letter-spacing: -0.04em;
       font-weight: 800;
     }
 
     .sub {
       margin: 14px auto 0;
-      color: var(--muted);
       font-size: 18px;
       line-height: 1.35;
-      max-width: 500px;
+      color: var(--muted);
+      max-width: 460px;
     }
 
-    .card {
+    .main-card {
       max-width: 720px;
       margin: 0 auto;
       background: var(--surface);
       border: 1px solid #e5e7eb;
-      border-radius: 24px;
+      border-radius: 22px;
       box-shadow: var(--shadow);
-      padding: 28px;
+      padding: 30px;
     }
 
-    .label {
+    .field-label {
       font-size: 15px;
       font-weight: 700;
       letter-spacing: 0.08em;
-      color: #6b7280;
       text-transform: uppercase;
+      color: #6b7280;
       margin-bottom: 14px;
-    }
-
-    .input-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
     }
 
     input {
       width: 100%;
-      height: 58px;
-      border-radius: 16px;
+      height: 56px;
+      border-radius: 15px;
       border: 1px solid var(--border);
       background: #fff;
       padding: 0 18px;
       font-size: 18px;
       color: var(--text);
       outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     input:focus {
-      border-color: #9ac7f1;
+      border-color: #93c5fd;
       box-shadow: 0 0 0 4px rgba(10, 102, 194, 0.10);
     }
 
@@ -152,7 +137,9 @@
     }
 
     .primary-btn {
-      height: 52px;
+      width: 100%;
+      height: 50px;
+      margin-top: 14px;
       border: none;
       border-radius: 999px;
       background: var(--blue);
@@ -160,8 +147,8 @@
       font-size: 18px;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.2s ease, transform 0.15s ease;
-      box-shadow: 0 8px 20px rgba(10, 102, 194, 0.18);
+      transition: background 0.18s ease, transform 0.15s ease;
+      box-shadow: 0 10px 22px rgba(10, 102, 194, 0.16);
     }
 
     .primary-btn:hover {
@@ -172,17 +159,74 @@
       transform: translateY(1px);
     }
 
+    .result-area {
+      display: none;
+      max-width: 720px;
+      margin: 18px auto 0;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .result-label {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .result-text {
+      font-size: 30px;
+      line-height: 1.28;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .actions {
+      display: none;
+      max-width: 720px;
+      margin: 14px auto 0;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .secondary-btn {
+      height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background: white;
+      color: #374151;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .secondary-btn:hover {
+      border-color: #bfdbfe;
+      color: var(--blue);
+      background: #f8fbff;
+    }
+
     .examples {
+      margin-top: 56px;
       text-align: center;
-      margin-top: 38px;
     }
 
     .examples-title {
       font-size: 15px;
       font-weight: 700;
       letter-spacing: 0.08em;
-      color: #6b7280;
       text-transform: uppercase;
+      color: #6b7280;
       margin-bottom: 18px;
     }
 
@@ -196,7 +240,7 @@
     }
 
     .chip {
-      border: 1px solid #d1d5db;
+      border: 1px solid var(--chip-border);
       background: #fff;
       color: #4b5563;
       border-radius: 999px;
@@ -209,76 +253,19 @@
     }
 
     .chip:hover {
-      border-color: #b8d7f5;
+      border-color: #bfdbfe;
       color: var(--blue);
       background: #f8fbff;
       transform: translateY(-1px);
     }
 
-    .result-card {
-      display: none;
-      max-width: 720px;
-      margin: 28px auto 0;
-      background: linear-gradient(180deg, #f8fbff 0%, #eef6ff 100%);
-      border: 1px solid #d8e8f8;
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 24px;
-    }
-
-    .result-label {
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: var(--blue);
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-
-    .result-text {
-      font-size: 28px;
-      line-height: 1.28;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: #111827;
-      word-break: break-word;
-    }
-
-    .actions {
-      display: none;
-      max-width: 720px;
-      margin: 14px auto 0;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .secondary-btn {
-      height: 46px;
-      padding: 0 18px;
-      border-radius: 999px;
-      border: 1px solid #cdd6e0;
-      background: white;
-      color: #374151;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.18s ease;
-    }
-
-    .secondary-btn:hover {
-      border-color: #b8d7f5;
-      color: var(--blue);
-      background: #f8fbff;
-    }
-
     .feedback {
+      display: none;
       text-align: center;
-      margin-top: 10px;
+      margin-top: 12px;
       color: var(--blue);
       font-size: 14px;
       font-weight: 700;
-      display: none;
     }
 
     @media (max-width: 720px) {
@@ -286,28 +273,20 @@
         padding: 0 16px;
       }
 
-      .brand span:last-child {
-        font-size: 14px;
-      }
-
-      .share-top {
-        font-size: 14px;
-      }
-
       .page {
-        padding-top: 34px;
+        padding: 36px 16px 64px;
       }
 
       h1 {
-        font-size: 38px;
+        font-size: 40px;
       }
 
       .sub {
         font-size: 17px;
       }
 
-      .card,
-      .result-card {
+      .main-card,
+      .result-area {
         padding: 20px;
         border-radius: 20px;
       }
@@ -326,10 +305,11 @@
 <body>
   <header class="topbar">
     <div class="brand">
-      <div class="brand-badge">🎁</div>
+      <div class="brand-icon">🎁</div>
       <span>Tradutor de Benefícios Arrombados</span>
     </div>
-    <div class="share-top">🔗 Compartilhar</div>
+
+    <div class="top-action">🔗 Compartilhar</div>
   </header>
 
   <main class="page">
@@ -341,36 +321,20 @@
       </p>
     </section>
 
-    <section class="card">
-      <div class="label">Texto humano</div>
+    <section class="main-card">
+      <div class="field-label">Benefício Corporativo</div>
 
-      <div class="input-wrap">
-        <input
-          id="input"
-          type="text"
-          placeholder="Ex: 1h de day off no aniversário"
-          onkeydown="if(event.key === 'Enter') gerar()"
-        />
-        <button class="primary-btn" onclick="gerar()">Gerar</button>
-      </div>
+      <input
+        id="input"
+        type="text"
+        placeholder="Ex: 1h de day off no aniversário"
+        onkeydown="if(event.key === 'Enter') gerar()"
+      />
+
+      <button class="primary-btn" onclick="gerar()">Gerar</button>
     </section>
 
-    <section class="examples">
-      <div class="examples-title">Experimente com exemplos</div>
-
-      <div class="chips">
-        <button class="chip" onclick="usarExemplo('Happy hour mensal')">Happy hour mensal</button>
-        <button class="chip" onclick="usarExemplo('1h de day off no aniversário')">1h de day off no aniversário</button>
-        <button class="chip" onclick="usarExemplo('Fruta no escritório')">Fruta no escritório</button>
-        <button class="chip" onclick="usarExemplo('Dress code flexível')">Dress code flexível</button>
-        <button class="chip" onclick="usarExemplo('Massagem uma vez por mês')">Massagem uma vez por mês</button>
-        <button class="chip" onclick="usarExemplo('Short friday no verão')">Short friday no verão</button>
-        <button class="chip" onclick="usarExemplo('Cerveja no fim do expediente')">Cerveja no fim do expediente</button>
-        <button class="chip" onclick="usarExemplo('Sala de descompressão')">Sala de descompressão</button>
-      </div>
-    </section>
-
-    <section class="result-card" id="resultCard">
+    <section class="result-area" id="resultArea">
       <div class="result-label">Tradução real</div>
       <div class="result-text" id="resultText"></div>
     </section>
@@ -382,6 +346,22 @@
     </section>
 
     <div class="feedback" id="feedback">Texto copiado.</div>
+
+    <section class="examples">
+      <div class="examples-title">Experimente com exemplos</div>
+
+      <div class="chips">
+        <button class="chip" onclick="usarExemplo('Happy hour mensal')">Happy hour mensal</button>
+        <button class="chip" onclick="usarExemplo('1h de day off no aniversário')">1h de day off no aniversário</button>
+        <button class="chip" onclick="usarExemplo('Fruta no escritório')">Fruta no escritório</button>
+        <button class="chip" onclick="usarExemplo('Dress code flexível')">Dress code flexível</button>
+        <button class="chip" onclick="usarExemplo('Wellness allowance')">Wellness allowance</button>
+        <button class="chip" onclick="usarExemplo('Massagem uma vez por mês')">Massagem uma vez por mês</button>
+        <button class="chip" onclick="usarExemplo('Cerveja no fim do expediente')">Cerveja no fim do expediente</button>
+        <button class="chip" onclick="usarExemplo('Sala de descompressão')">Sala de descompressão</button>
+        <button class="chip" onclick="usarExemplo('Short friday no verão')">Short friday no verão</button>
+      </div>
+    </section>
   </main>
 
   <script>
@@ -408,8 +388,8 @@
       "A empresa chama de benefício. O boleto chama de piada."
     ];
 
-    let textoFinal = "";
     let ultimoInput = "";
+    let textoFinal = "";
 
     function sortearResposta() {
       return respostas[Math.floor(Math.random() * respostas.length)];
@@ -432,15 +412,17 @@
       textoFinal = montarResultado(input, resposta);
 
       document.getElementById("resultText").innerText = textoFinal;
-      document.getElementById("resultCard").style.display = "block";
+      document.getElementById("resultArea").style.display = "block";
       document.getElementById("actions").style.display = "flex";
       document.getElementById("feedback").style.display = "none";
     }
 
     function gerarOutra() {
       if (!ultimoInput) return;
+
       const resposta = sortearResposta();
       textoFinal = montarResultado(ultimoInput, resposta);
+
       document.getElementById("resultText").innerText = textoFinal;
       document.getElementById("feedback").style.display = "none";
     }
@@ -448,11 +430,12 @@
     function usarExemplo(texto) {
       document.getElementById("input").value = texto;
       gerar();
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      document.getElementById("resultArea").scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
     function copiar() {
       if (!textoFinal) return;
+
       navigator.clipboard.writeText(textoFinal).then(() => {
         document.getElementById("feedback").style.display = "block";
       });
@@ -460,16 +443,20 @@
 
     function linkedin() {
       if (!textoFinal) return;
-      const url = "https://www.linkedin.com/feed/?shareActive=true&text=" + encodeURIComponent(textoFinal);
+
+      const url =
+        "https://www.linkedin.com/feed/?shareActive=true&text=" +
+        encodeURIComponent(textoFinal);
+
       window.open(url, "_blank");
     }
 
     function esconderResultado() {
-      document.getElementById("resultCard").style.display = "none";
+      document.getElementById("resultArea").style.display = "none";
       document.getElementById("actions").style.display = "none";
       document.getElementById("feedback").style.display = "none";
-      textoFinal = "";
       ultimoInput = "";
+      textoFinal = "";
     }
   </script>
 </body>
