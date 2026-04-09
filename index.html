@@ -8,169 +8,79 @@
   <style>
     * { box-sizing: border-box; }
 
-    :root {
-      --bg: #f3f2ef;
-      --card: #ffffff;
-      --border: #dce6f1;
-      --blue: #0a66c2;
-      --blue-dark: #004182;
-      --blue-soft: #e8f3ff;
-      --text: #1d2226;
-      --muted: #5f6b7a;
-    }
-
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-      background: var(--bg);
+      background: #f3f2ef;
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
       padding: 24px;
-      color: var(--text);
     }
 
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
+      background: white;
       border-radius: 16px;
-      max-width: 720px;
+      max-width: 700px;
       width: 100%;
       padding: 32px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
 
-    .topbar {
-      height: 6px;
-      background: linear-gradient(90deg, #0a66c2, #378fe9);
-      margin: -32px -32px 24px -32px;
-      border-radius: 16px 16px 0 0;
-    }
-
     h1 {
       margin: 0 0 8px;
-      font-size: 36px;
+      font-size: 34px;
     }
 
     .sub {
-      color: var(--muted);
+      color: #666;
       margin-bottom: 24px;
-      font-size: 16px;
-      line-height: 1.5;
     }
 
     input {
       width: 100%;
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid #cfd9e3;
+      padding: 18px;
       font-size: 16px;
-      margin-bottom: 12px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      outline: none;
     }
 
     input:focus {
-      border-color: var(--blue);
-      outline: none;
-      box-shadow: 0 0 0 4px rgba(10,102,194,0.12);
-    }
-
-    .primary-btn, .secondary-btn {
-      width: 100%;
-      padding: 14px;
-      border-radius: 999px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 15px;
-      margin-top: 6px;
-    }
-
-    .primary-btn {
-      border: none;
-      background: var(--blue);
-      color: white;
-    }
-
-    .primary-btn:hover {
-      background: var(--blue-dark);
-    }
-
-    .secondary-btn {
-      border: 1px solid var(--blue);
-      background: white;
-      color: var(--blue);
+      border-color: #0a66c2;
+      box-shadow: 0 0 0 3px rgba(10,102,194,0.15);
     }
 
     .output {
-      display: none;
       margin-top: 24px;
       padding: 20px;
-      background: var(--blue-soft);
-      border-radius: 16px;
-    }
-
-    .badge {
-      font-weight: bold;
-      color: var(--blue);
-      margin-bottom: 10px;
-    }
-
-    .result {
+      background: #e8f3ff;
+      border-radius: 12px;
       font-size: 22px;
       font-weight: bold;
+      display: none;
     }
 
     .actions {
-      margin-top: 15px;
+      margin-top: 12px;
       display: none;
       gap: 10px;
       flex-direction: column;
     }
 
-    /* STORY */
-
-    .story-stage {
-      position: fixed;
-      left: -99999px;
-      width: 1080px;
-      height: 1920px;
-      background: #f3f8fd;
-    }
-
-    .story {
-      width: 1080px;
-      height: 1920px;
-      padding: 80px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: linear-gradient(180deg, #f8fbff, #eef5fc);
-      font-family: Arial;
-    }
-
-    .story-title {
-      font-size: 80px;
-      font-weight: 900;
-      margin-bottom: 30px;
-    }
-
-    .story-benefit {
-      background: #0a66c2;
-      color: white;
-      padding: 20px;
-      border-radius: 20px;
-      font-size: 34px;
+    button {
+      padding: 14px;
+      border-radius: 999px;
+      border: none;
       font-weight: bold;
+      cursor: pointer;
     }
 
-    .story-result {
-      font-size: 70px;
-      font-weight: 900;
-      margin-top: 40px;
-    }
-
-    .story-footer {
-      font-size: 28px;
+    .secondary {
+      background: white;
+      border: 1px solid #0a66c2;
+      color: #0a66c2;
     }
 
   </style>
@@ -179,81 +89,58 @@
 <body>
 
   <div class="card">
-    <div class="topbar"></div>
-
     <h1>Gerador de Benefícios Arrombados</h1>
 
     <p class="sub">
-      Escreva um benefício corporativo. A gente traduz sem filtro.
+      Cole um benefício corporativo. A gente traduz sem filtro.
     </p>
 
-    <input id="input" placeholder="Ex: 1h de day off no aniversário" />
+    <input
+      id="input"
+      placeholder="Ex: Happy hour mensal"
+      oninput="gerar()"
+    />
 
-    <button class="primary-btn" onclick="gerar()">Gerar</button>
+    <div class="output" id="output"></div>
 
-    <div class="output" id="output">
-      <div class="badge" id="badge"></div>
-      <div class="result" id="result"></div>
-
-      <div class="actions" id="actions">
-        <button class="secondary-btn" onclick="copiar()">Copiar</button>
-        <button class="secondary-btn" onclick="linkedin()">Postar no LinkedIn</button>
-        <button class="secondary-btn" onclick="gerarImagem()">Gerar imagem</button>
-      </div>
+    <div class="actions" id="actions">
+      <button class="secondary" onclick="copiar()">Copiar</button>
+      <button class="secondary" onclick="linkedin()">Postar no LinkedIn</button>
     </div>
   </div>
-
-  <!-- STORY -->
-  <div class="story-stage">
-    <div class="story" id="story">
-      <div>
-        <div class="story-title">Gerador de Benefícios Arrombados</div>
-        <div class="story-benefit" id="storyBenefit"></div>
-      </div>
-
-      <div class="story-result" id="storyResult"></div>
-
-      <div class="story-footer">
-        Escreva um benefício corporativo. A gente traduz sem filtro.
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script>
     const respostas = [
+      "Menos custo, mais discurso.",
       "A empresa economiza, você agradece.",
       "Isso aqui é só maquiagem corporativa.",
-      "Menos custo, mais discurso.",
-      "Isso aqui é só pra não aumentar salário.",
+      "Isso aqui é só narrativa.",
       "Você continua ferrado, mas com branding.",
-      "Isso resolve mais a empresa do que você.",
-      "Isso aqui é só narrativa."
+      "Isso aqui não resolve nada.",
+      "Isso aqui é só pra não aumentar salário.",
+      "A empresa finge que se importa.",
+      "Isso aqui é só um agrado simbólico.",
+      "Menos entrega, mais storytelling."
     ];
 
     let textoFinal = "";
-    let ultimoInput = "";
-    let ultimoResultado = "";
 
     function gerar() {
-      const input = document.getElementById("input").value;
+      const input = document.getElementById("input").value.trim();
 
       if (!input) {
-        alert("Digite algo.");
+        document.getElementById("output").style.display = "none";
+        document.getElementById("actions").style.display = "none";
         return;
       }
 
       const random = respostas[Math.floor(Math.random() * respostas.length)];
 
-      ultimoInput = input;
-      ultimoResultado = random;
-      textoFinal = `${input}\n\n👉 ${random}`;
+      textoFinal = `${input} 🟰 ${random}`;
 
       document.getElementById("output").style.display = "block";
       document.getElementById("actions").style.display = "flex";
-      document.getElementById("badge").innerText = input;
-      document.getElementById("result").innerText = random;
+      document.getElementById("output").innerText = textoFinal;
     }
 
     function copiar() {
@@ -264,21 +151,6 @@
     function linkedin() {
       const url = "https://www.linkedin.com/feed/?shareActive=true&text=" + encodeURIComponent(textoFinal);
       window.open(url, "_blank");
-    }
-
-    async function gerarImagem() {
-      document.getElementById("storyBenefit").innerText = ultimoInput;
-      document.getElementById("storyResult").innerText = ultimoResultado;
-
-      const canvas = await html2canvas(document.getElementById("story"), {
-        backgroundColor: "#ffffff",
-        scale: 2
-      });
-
-      const link = document.createElement("a");
-      link.download = "post.jpg";
-      link.href = canvas.toDataURL("image/jpeg", 0.95);
-      link.click();
     }
   </script>
 
