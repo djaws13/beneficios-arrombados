@@ -1,79 +1,311 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gerador de Benefícios Arrombados</title>
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+    * {
+      box-sizing: border-box;
     }
 
-    .container {
-      text-align: center;
-      max-width: 600px;
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #f3f2ef;
+      color: #1d2226;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 760px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dce6f1;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(15, 20, 25, 0.08);
+      overflow: hidden;
+    }
+
+    .topbar {
+      height: 10px;
+      background: linear-gradient(90deg, #0a66c2, #378fe9);
+    }
+
+    .content {
+      padding: 36px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0a66c2;
+      background: #e8f3ff;
+      border: 1px solid #cfe5ff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 40px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: #0f1419;
+    }
+
+    .sub {
+      margin: 0 0 28px;
+      font-size: 18px;
+      line-height: 1.5;
+      color: #536471;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     input {
-      padding: 15px;
       width: 100%;
-      font-size: 16px;
-      margin-top: 20px;
-      border: none;
+      padding: 18px 20px;
+      border-radius: 14px;
+      border: 1px solid #cfd9e3;
+      background: #ffffff;
+      font-size: 17px;
+      color: #1d2226;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    button {
-      padding: 15px;
-      margin-top: 10px;
-      width: 100%;
-      background: #ff4d4d;
+    input:focus {
+      border-color: #0a66c2;
+      box-shadow: 0 0 0 4px rgba(10, 102, 194, 0.12);
+    }
+
+    input::placeholder {
+      color: #7a8a99;
+    }
+
+    .primary-btn {
       border: none;
+      border-radius: 999px;
+      background: #0a66c2;
       color: white;
-      font-size: 16px;
+      font-size: 17px;
+      font-weight: 700;
+      padding: 16px 24px;
       cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .primary-btn:hover {
+      background: #004182;
+    }
+
+    .primary-btn:active {
+      transform: translateY(1px);
     }
 
     .output {
-      margin-top: 30px;
-      font-size: 18px;
-      color: #ffcc00;
+      display: none;
+      margin-top: 28px;
+      background: #f7fbff;
+      border: 1px solid #d7e9fb;
+      border-radius: 16px;
+      padding: 22px;
+    }
+
+    .output-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #0a66c2;
+      margin-bottom: 10px;
+    }
+
+    .input-badge {
+      display: inline-block;
+      font-weight: 700;
+      color: #0a66c2;
+      background: #e8f3ff;
+      border: 1px solid #cfe5ff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+    }
+
+    .result-text {
+      font-size: 24px;
+      line-height: 1.4;
+      color: #1d2226;
+      font-weight: 600;
+    }
+
+    .actions {
+      display: none;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .secondary-btn {
+      border: 1px solid #0a66c2;
+      background: white;
+      color: #0a66c2;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .secondary-btn:hover {
+      background: #e8f3ff;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #6b7785;
+    }
+
+    @media (max-width: 640px) {
+      .content {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .sub {
+        font-size: 16px;
+      }
+
+      .result-text {
+        font-size: 21px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .secondary-btn,
+      .primary-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Tradutor de Benefícios Corporativos</h1>
-    <p>Digite um benefício e veja a verdade 👇</p>
+  <div class="wrapper">
+    <div class="card">
+      <div class="topbar"></div>
 
-    <input id="input" placeholder="Ex: 1h de day off no aniversário" />
-    <button onclick="gerar()">Traduzir</button>
+      <div class="content">
+        <div class="eyebrow">Benefícios corporativos, traduzidos</div>
 
-    <div class="output" id="output"></div>
+        <h1>Gerador de Benefícios Arrombados</h1>
+        <p class="sub">
+          Digite um benefício corporativo e veja o que ele realmente significa.
+        </p>
+
+        <div class="input-group">
+          <input
+            id="input"
+            placeholder="Ex: 1 hora de day off no aniversário"
+          />
+          <button class="primary-btn" onclick="gerar()">Gerar</button>
+        </div>
+
+        <div class="output" id="outputBox">
+          <div class="output-label">Tradução real</div>
+          <div class="input-badge" id="inputBadge"></div>
+          <div class="result-text" id="outputText"></div>
+
+          <div class="actions" id="actions">
+            <button class="secondary-btn" onclick="copiar()">Copiar texto</button>
+            <button class="secondary-btn" onclick="linkedin()">Postar no LinkedIn</button>
+          </div>
+
+          <div class="footer-note">
+            Ideal para prints, posts e exposição moderada do corporativo.
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
-    function gerar() {
-      const input = document.getElementById("input").value;
+    const respostas = [
+      "Isso aqui é só maquiagem corporativa.",
+      "Parece benefício, mas é só branding.",
+      "Zero impacto real, 100% LinkedIn friendly.",
+      "Você continua sobrecarregado, mas agora com embalagem bonita.",
+      "É tipo ganhar parabéns em vez de melhoria real.",
+      "Isso aqui é custo zero com cara de cuidado.",
+      "A empresa economiza, você agradece.",
+      "Benefício de PowerPoint, não de vida real.",
+      "Isso não muda sua vida, só o discurso.",
+      "RH chama de cultura, você chama de gambiarra.",
+      "Mais simbólico do que útil.",
+      "Um mimo pra compensar o básico que falta.",
+      "Isso aqui é só pra sair bem no post institucional.",
+      "Parece fofo até você olhar a realidade.",
+      "Não resolve nada, mas rende conteúdo.",
+      "Isso aqui é um abraço com prazo de validade.",
+      "A empresa finge que dá, você finge que recebeu.",
+      "Isso aqui é só um 'calma aí' institucional.",
+      "Um benefício que existe mais no discurso do que na prática.",
+      "Isso aqui é o equivalente corporativo de um tapinha nas costas."
+    ];
 
-      const respostas = [
-        "Isso aqui é basicamente migalha com branding.",
-        "A empresa quer parecer legal sem gastar dinheiro.",
-        "Você continua sobrecarregado, mas com um mimo simbólico.",
-        "Um benefício que custa zero, mas rende post no LinkedIn.",
-        "Isso aqui é só para parecer que existe cultura.",
-        "Menos custo, mais storytelling."
-      ];
+    let textoFinal = "";
+
+    function gerar() {
+      const input = document.getElementById("input").value.trim();
+
+      if (!input) {
+        alert("Digite um benefício primeiro.");
+        return;
+      }
 
       const random = respostas[Math.floor(Math.random() * respostas.length)];
 
-      document.getElementById("output").innerText =
-        `"${input}"\n\n👉 Tradução: ${random}`;
+      textoFinal = `Benefício: ${input}\n\nTradução real: ${random}`;
+
+      document.getElementById("inputBadge").innerText = input;
+      document.getElementById("outputText").innerText = random;
+      document.getElementById("outputBox").style.display = "block";
+      document.getElementById("actions").style.display = "flex";
+    }
+
+    function copiar() {
+      navigator.clipboard.writeText(textoFinal);
+      alert("Texto copiado.");
+    }
+
+    function linkedin() {
+      const url =
+        "https://www.linkedin.com/feed/?shareActive=true&text=" +
+        encodeURIComponent(textoFinal);
+      window.open(url, "_blank");
     }
   </script>
 </body>
