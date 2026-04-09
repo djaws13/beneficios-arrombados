@@ -1,455 +1,501 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Tradutor de Benefícios Arrombados</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tradutor de Benefícios Arrombados</title>
 
-<style>
-* { box-sizing: border-box; }
+  <style>
+    * { box-sizing: border-box; }
 
-:root {
-  --bg: #f3f3f5;
-  --surface: #ffffff;
-  --surface-2: #ffffff;
-  --text: #111111;
-  --muted: #666666;
-  --border: #e5e7eb;
-  --border-2: #cccccc;
-  --blue: #0a66c2;
-  --blue-hover: #004182;
-  --chip-bg: #ffffff;
-  --chip-text: #111111;
-}
+    :root {
+      --bg: #f3f3f5;
+      --surface: #ffffff;
+      --surface-2: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --border: #e5e7eb;
+      --border-2: #cccccc;
+      --blue: #0a66c2;
+      --blue-hover: #004182;
+      --chip-bg: #ffffff;
+      --chip-text: #111111;
+    }
 
-body.dark {
-  --bg: #0f1115;
-  --surface: #171a21;
-  --surface-2: #1d212b;
-  --text: #f3f4f6;
-  --muted: #a1a1aa;
-  --border: #2a3040;
-  --border-2: #394150;
-  --blue: #4ea1ff;
-  --blue-hover: #7ab8ff;
-  --chip-bg: #1b2030;
-  --chip-text: #f3f4f6;
-}
+    body.dark {
+      --bg: #0f1115;
+      --surface: #171a21;
+      --surface-2: #1d212b;
+      --text: #f3f4f6;
+      --muted: #a1a1aa;
+      --border: #2a3040;
+      --border-2: #394150;
+      --blue: #4ea1ff;
+      --blue-hover: #7ab8ff;
+      --chip-bg: #1b2030;
+      --chip-text: #f3f4f6;
+    }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
-  background: var(--bg);
-  color: var(--text);
-  transition: background 0.25s ease, color 0.25s ease;
-}
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.25s ease, color 0.25s ease;
+    }
 
-.topbar {
-  height: 60px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  transition: background 0.25s ease, border-color 0.25s ease;
-}
+    .topbar {
+      height: 60px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 700;
-  color: var(--text);
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--text);
+    }
 
-.brand-icon {
-  width: 36px;
-  height: 36px;
-  background: var(--blue);
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-  color: white;
-}
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--blue);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: white;
+      flex-shrink: 0;
+    }
 
-.top-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-.top-action,
-.theme-toggle {
-  cursor: pointer;
-  color: var(--muted);
-  font-size: 14px;
-  background: transparent;
-  border: 1px solid var(--border);
-  padding: 8px 12px;
-  border-radius: 999px;
-  transition: all 0.2s ease;
-}
+    .top-action,
+    .theme-toggle {
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 14px;
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: all 0.2s ease;
+    }
 
-.top-action:hover,
-.theme-toggle:hover {
-  border-color: var(--blue);
-  color: var(--blue);
-}
+    .top-action:hover,
+    .theme-toggle:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
 
-.page {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 50px 20px;
-}
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
 
-h1 {
-  text-align: center;
-  font-size: 44px;
-  margin: 0;
-  color: var(--text);
-}
+    h1 {
+      text-align: center;
+      font-size: 44px;
+      margin: 0;
+      color: var(--text);
+      letter-spacing: -0.03em;
+    }
 
-.sub {
-  text-align: center;
-  color: var(--muted);
-  margin-top: 10px;
-  line-height: 1.4;
-}
+    .sub {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 10px;
+      line-height: 1.4;
+    }
 
-.card {
-  margin-top: 30px;
-  background: var(--surface);
-  padding: 24px;
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  transition: background 0.25s ease, border-color 0.25s ease;
-}
+    .card {
+      margin-top: 30px;
+      background: var(--surface);
+      padding: 24px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
 
-.label {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
+    .label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 10px;
+      letter-spacing: 0.06em;
+    }
 
-input {
-  width: 100%;
-  height: 52px;
-  border-radius: 12px;
-  border: 1px solid var(--border-2);
-  padding: 0 16px;
-  font-size: 16px;
-  outline: none;
-  background: var(--surface-2);
-  color: var(--text);
-  transition: all 0.25s ease;
-}
+    input {
+      width: 100%;
+      height: 52px;
+      border-radius: 12px;
+      border: 1px solid var(--border-2);
+      padding: 0 16px;
+      font-size: 16px;
+      outline: none;
+      background: var(--surface-2);
+      color: var(--text);
+      transition: all 0.25s ease;
+    }
 
-input::placeholder {
-  color: var(--muted);
-}
+    input::placeholder {
+      color: var(--muted);
+    }
 
-input:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 3px rgba(10,102,194,0.15);
-}
+    input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(10, 102, 194, 0.15);
+    }
 
-button.primary {
-  width: 100%;
-  margin-top: 12px;
-  height: 48px;
-  border-radius: 999px;
-  border: none;
-  background: var(--blue);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
+    button.primary {
+      width: 100%;
+      margin-top: 12px;
+      height: 48px;
+      border-radius: 999px;
+      border: none;
+      background: var(--blue);
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
 
-button.primary:hover {
-  background: var(--blue-hover);
-}
+    button.primary:hover {
+      background: var(--blue-hover);
+    }
 
-.result {
-  display: none;
-  margin-top: 20px;
-  background: var(--surface);
-  padding: 24px;
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  transition: background 0.25s ease, border-color 0.25s ease;
-}
+    .result {
+      display: none;
+      margin-top: 20px;
+      background: var(--surface);
+      padding: 24px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
 
-.result-label {
-  font-size: 12px;
-  color: var(--blue);
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+    .result-label {
+      font-size: 12px;
+      color: var(--blue);
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: 0.08em;
+    }
 
-.result-text {
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.3;
-  color: var(--text);
-}
+    .result-text {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.3;
+      color: var(--text);
+    }
 
-.result-text.typing::after {
-  content: "|";
-  margin-left: 4px;
-  color: var(--blue);
-  animation: blink 1s infinite;
-}
+    .result-text.typing::after {
+      content: "|";
+      margin-left: 4px;
+      color: var(--blue);
+      animation: blink 1s infinite;
+    }
 
-@keyframes blink {
-  50% { opacity: 0; }
-}
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
 
-.actions {
-  display: none;
-  margin-top: 12px;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+    .actions {
+      display: none;
+      margin-top: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-.secondary {
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--border-2);
-  background: var(--surface);
-  color: var(--text);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+    .secondary {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border-2);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 14px;
+    }
 
-.secondary:hover {
-  border-color: var(--blue);
-  color: var(--blue);
-}
+    .secondary:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
 
-.examples {
-  margin-top: 40px;
-  text-align: center;
-}
+    .examples {
+      margin-top: 40px;
+      text-align: center;
+    }
 
-.chips {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
+    .chips {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
 
-.chip {
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--border-2);
-  background: var(--chip-bg);
-  color: var(--chip-text);
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
+    .chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border-2);
+      background: var(--chip-bg);
+      color: var(--chip-text);
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
 
-.chip:hover {
-  border-color: var(--blue);
-  color: var(--blue);
-}
+    .chip:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
 
-@media (max-width: 640px) {
-  .topbar {
-    padding: 0 16px;
-  }
+    @media (max-width: 640px) {
+      .topbar {
+        padding: 0 16px;
+      }
 
-  .top-actions {
-    gap: 6px;
-  }
+      .top-actions {
+        gap: 6px;
+      }
 
-  .top-action,
-  .theme-toggle {
-    padding: 8px 10px;
-    font-size: 13px;
-  }
+      .top-action,
+      .theme-toggle {
+        padding: 8px 10px;
+        font-size: 13px;
+      }
 
-  h1 {
-    font-size: 34px;
-  }
+      h1 {
+        font-size: 34px;
+      }
 
-  .result-text {
-    font-size: 24px;
-  }
-}
-</style>
+      .result-text {
+        font-size: 24px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="topbar">
-  <div class="brand">
-    <div class="brand-icon">🎁</div>
-    Tradutor de Benefícios Arrombados
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-icon">🎁</div>
+      Tradutor de Benefícios Arrombados
+    </div>
+
+    <div class="top-actions">
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙 Dark mode</button>
+      <button class="top-action" onclick="compartilhar()">Compartilhar</button>
+    </div>
   </div>
 
-  <div class="top-actions">
-    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙 Dark mode</button>
-    <button class="top-action" onclick="compartilhar()">Compartilhar</button>
-  </div>
-</div>
+  <div class="page">
+    <h1>Tradutor de benefícios arrombados</h1>
 
-<div class="page">
+    <div class="sub">
+      Escreva um benefício corporativo.<br>
+      A gente traduz sem filtro.
+    </div>
 
-  <h1>Tradutor de benefícios arrombados</h1>
+    <div class="card">
+      <div class="label">BENEFÍCIO CORPORATIVO</div>
+      <input id="input" placeholder="Ex: Happy hour mensal" onkeydown="if(event.key === 'Enter') gerar()">
+      <button class="primary" onclick="gerar()">Traduzir</button>
+    </div>
 
-  <div class="sub">
-    Escreva um benefício corporativo.<br>
-    A gente traduz sem filtro.
-  </div>
+    <div class="result" id="result">
+      <div class="result-label">TRADUÇÃO REAL</div>
+      <div class="result-text" id="resultText"></div>
+    </div>
 
-  <div class="card">
-    <div class="label">BENEFÍCIO CORPORATIVO</div>
-    <input id="input" placeholder="Ex: Happy hour mensal">
-    <button class="primary" onclick="gerar()">Traduzir</button>
-  </div>
+    <div class="actions" id="actions">
+      <button class="secondary" onclick="copiar()">Copiar</button>
+      <button class="secondary" onclick="linkedin()">LinkedIn</button>
+    </div>
 
-  <div class="result" id="result">
-    <div class="result-label">TRADUÇÃO REAL</div>
-    <div class="result-text" id="resultText"></div>
-  </div>
-
-  <div class="actions" id="actions">
-    <button class="secondary" onclick="copiar()">Copiar</button>
-    <button class="secondary" onclick="linkedin()">LinkedIn</button>
-  </div>
-
-  <div class="examples">
-    <div class="label">EXPERIMENTE COM EXEMPLOS</div>
-    <div class="chips" id="chips"></div>
+    <div class="examples">
+      <div class="label">EXPERIMENTE COM EXEMPLOS</div>
+      <div class="chips" id="chips"></div>
+    </div>
   </div>
 
-</div>
+  <script>
+    const respostas = [
+      "Isso aqui é pra você aceitar menos.",
+      "A empresa economiza e ainda ganha aplauso.",
+      "Você continua ferrado, mas com um mimo.",
+      "Isso aqui é só um tapa com carinho.",
+      "A empresa chama de benefício. O boleto chama de piada.",
+      "Isso aqui é só um curativo em cima do caos.",
+      "A empresa prefere isso do que pagar mais.",
+      "Você ganha isso pra esquecer o resto.",
+      "Isso aqui é só pra parecer que se importa.",
+      "Menos custo, mais discurso.",
+      "A empresa economiza. Você agradece.",
+      "Isso aqui é maquiagem corporativa.",
+      "Não resolve nada. Só parece que resolve.",
+      "Você continua ferrado, mas com branding.",
+      "Isso aqui é narrativa, não solução.",
+      "Migalha com storytelling.",
+      "A empresa finge cuidado.",
+      "Isso aqui é o mínimo com embalagem premium.",
+      "A empresa não resolveu. Só comunicou melhor.",
+      "Isso aqui é só pra não aumentar salário.",
+      "Problema estrutural com solução estética.",
+      "A empresa troca custo por percepção.",
+      "Isso aqui é PowerPoint virando realidade.",
+      "Benefício de post, não de vida.",
+      "Isso aqui é um agrado, não uma solução.",
+      "A empresa chama de cultura. Você chama de cansaço.",
+      "Isso aqui é só contenção de danos.",
+      "Parece bom no LinkedIn. Na prática, não muda nada.",
+      "A empresa entrega pouco e chama de experiência.",
+      "Isso aqui é só pra ninguém reclamar.",
+      "A empresa quis parecer moderna sem gastar.",
+      "Isso aqui resolve mais o branding deles que sua vida.",
+      "Você ganha isso pra não pedir mais.",
+      "Isso aqui é só um jeito educado de te segurar.",
+      "A empresa dá pouco e espera gratidão.",
+      "Isso aqui é só um bônus emocional barato.",
+      "A empresa chama de cuidado. É só economia.",
+      "Isso aqui é só pra você não sair.",
+      "Você ganha isso e perde no resto.",
+      "A empresa chama de benefício. É só maquiagem.",
+      "Isso aqui é só pra inglês ver — e LinkedIn postar."
+    ];
 
-<script>
-const respostas = [
-  "Menos custo, mais discurso.",
-  "A empresa economiza, você agradece.",
-  "Isso aqui é só maquiagem corporativa.",
-  "Isso aqui não resolve nada.",
-  "Você continua ferrado, mas com branding.",
-  "Isso aqui é só narrativa.",
-  "Migalha com storytelling.",
-  "A empresa finge que se importa."
-];
+    const exemplos = [
+      "Happy hour mensal",
+      "1h de day off no aniversário",
+      "Fruta no escritório",
+      "Dress code flexível",
+      "Massagem uma vez por mês",
+      "Short friday no verão",
+      "Cerveja no fim do expediente",
+      "Sala de descompressão"
+    ];
 
-const exemplos = [
-  "Happy hour mensal",
-  "1h de day off no aniversário",
-  "Fruta no escritório",
-  "Dress code flexível",
-  "Massagem uma vez por mês",
-  "Short friday no verão",
-  "Cerveja no fim do expediente",
-  "Sala de descompressão"
-];
+    let textoFinal = "";
+    let typingTimeouts = [];
 
-let textoFinal = "";
+    function aplicarTemaSalvo() {
+      const tema = localStorage.getItem("tema");
 
-function aplicarTemaSalvo() {
-  const tema = localStorage.getItem("tema");
-
-  if (tema === "dark") {
-    document.body.classList.add("dark");
-    document.getElementById("themeToggle").innerText = "☀️ Light mode";
-  } else {
-    document.body.classList.remove("dark");
-    document.getElementById("themeToggle").innerText = "🌙 Dark mode";
-  }
-}
-
-function toggleTheme() {
-  document.body.classList.toggle("dark");
-
-  const isDark = document.body.classList.contains("dark");
-
-  localStorage.setItem("tema", isDark ? "dark" : "light");
-  document.getElementById("themeToggle").innerText = isDark
-    ? "☀️ Light mode"
-    : "🌙 Dark mode";
-}
-
-function sortear() {
-  return respostas[Math.floor(Math.random() * respostas.length)];
-}
-
-function typeText(el, text) {
-  el.innerText = "";
-  el.classList.add("typing");
-
-  let i = 0;
-
-  function t() {
-    if (i < text.length) {
-      el.innerText += text[i];
-      i++;
-      setTimeout(t, 15);
-    } else {
-      el.classList.remove("typing");
+      if (tema === "dark") {
+        document.body.classList.add("dark");
+        document.getElementById("themeToggle").innerText = "☀️ Light mode";
+      } else {
+        document.body.classList.remove("dark");
+        document.getElementById("themeToggle").innerText = "🌙 Dark mode";
+      }
     }
-  }
 
-  t();
-}
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
 
-function gerar() {
-  const input = document.getElementById("input").value.trim();
-  if (!input) return;
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("tema", isDark ? "dark" : "light");
+      document.getElementById("themeToggle").innerText = isDark
+        ? "☀️ Light mode"
+        : "🌙 Dark mode";
+    }
 
-  const resposta = sortear();
-  textoFinal = `${input} 🟰 ${resposta}`;
+    function sortear() {
+      return respostas[Math.floor(Math.random() * respostas.length)];
+    }
 
-  document.getElementById("result").style.display = "block";
-  document.getElementById("actions").style.display = "flex";
+    function limparTyping() {
+      typingTimeouts.forEach(timeout => clearTimeout(timeout));
+      typingTimeouts = [];
+    }
 
-  typeText(document.getElementById("resultText"), resposta);
-}
+    function typeText(el, text) {
+      limparTyping();
+      el.innerText = "";
+      el.classList.add("typing");
 
-function usar(txt) {
-  document.getElementById("input").value = txt;
-  gerar();
-}
+      let i = 0;
 
-function copiar() {
-  if (!textoFinal) return;
-  navigator.clipboard.writeText(textoFinal);
-  alert("Copiado");
-}
+      function t() {
+        if (i < text.length) {
+          el.innerText += text[i];
+          i++;
+          const timeout = setTimeout(t, 15);
+          typingTimeouts.push(timeout);
+        } else {
+          el.classList.remove("typing");
+        }
+      }
 
-function linkedin() {
-  if (!textoFinal) return;
-  window.open("https://www.linkedin.com/feed/?shareActive=true&text=" + encodeURIComponent(textoFinal));
-}
+      t();
+    }
 
-function compartilhar() {
-  navigator.clipboard.writeText(window.location.href);
-  alert("Link copiado");
-}
+    function gerar() {
+      const input = document.getElementById("input").value.trim();
+      if (!input) return;
 
-function renderExemplos() {
-  const container = document.getElementById("chips");
+      const resposta = sortear();
+      textoFinal = `${input} 🟰 ${resposta}`;
 
-  exemplos.forEach(texto => {
-    const chip = document.createElement("div");
-    chip.className = "chip";
-    chip.innerText = texto;
-    chip.onclick = () => usar(texto);
-    container.appendChild(chip);
-  });
-}
+      document.getElementById("result").style.display = "block";
+      document.getElementById("actions").style.display = "flex";
 
-renderExemplos();
-aplicarTemaSalvo();
-</script>
+      typeText(document.getElementById("resultText"), resposta);
+    }
+
+    function usar(txt) {
+      document.getElementById("input").value = txt;
+      gerar();
+    }
+
+    function copiar() {
+      if (!textoFinal) return;
+      navigator.clipboard.writeText(textoFinal);
+      alert("Copiado");
+    }
+
+    function linkedin() {
+      if (!textoFinal) return;
+      window.open(
+        "https://www.linkedin.com/feed/?shareActive=true&text=" + encodeURIComponent(textoFinal),
+        "_blank"
+      );
+    }
+
+    function compartilhar() {
+      navigator.clipboard.writeText(window.location.href);
+      alert("Link copiado");
+    }
+
+    function renderExemplos() {
+      const container = document.getElementById("chips");
+
+      exemplos.forEach(texto => {
+        const chip = document.createElement("div");
+        chip.className = "chip";
+        chip.innerText = texto;
+        chip.onclick = () => usar(texto);
+        container.appendChild(chip);
+      });
+    }
+
+    renderExemplos();
+    aplicarTemaSalvo();
+  </script>
 
 </body>
 </html>
