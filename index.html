@@ -8,21 +8,51 @@
 <style>
 * { box-sizing: border-box; }
 
+:root {
+  --bg: #f3f3f5;
+  --surface: #ffffff;
+  --surface-2: #ffffff;
+  --text: #111111;
+  --muted: #666666;
+  --border: #e5e7eb;
+  --border-2: #cccccc;
+  --blue: #0a66c2;
+  --blue-hover: #004182;
+  --chip-bg: #ffffff;
+  --chip-text: #111111;
+}
+
+body.dark {
+  --bg: #0f1115;
+  --surface: #171a21;
+  --surface-2: #1d212b;
+  --text: #f3f4f6;
+  --muted: #a1a1aa;
+  --border: #2a3040;
+  --border-2: #394150;
+  --blue: #4ea1ff;
+  --blue-hover: #7ab8ff;
+  --chip-bg: #1b2030;
+  --chip-text: #f3f4f6;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
-  background: #f3f3f5;
-  color: #111;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 .topbar {
   height: 60px;
-  background: #fff;
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .brand {
@@ -30,22 +60,41 @@ body {
   align-items: center;
   gap: 10px;
   font-weight: 700;
+  color: var(--text);
 }
 
 .brand-icon {
   width: 36px;
   height: 36px;
-  background: #0a66c2;
+  background: var(--blue);
   border-radius: 10px;
   display: grid;
   place-items: center;
   color: white;
 }
 
-.top-action {
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.top-action,
+.theme-toggle {
   cursor: pointer;
-  color: #666;
+  color: var(--muted);
   font-size: 14px;
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.top-action:hover,
+.theme-toggle:hover {
+  border-color: var(--blue);
+  color: var(--blue);
 }
 
 .page {
@@ -58,27 +107,29 @@ h1 {
   text-align: center;
   font-size: 44px;
   margin: 0;
+  color: var(--text);
 }
 
 .sub {
   text-align: center;
-  color: #666;
+  color: var(--muted);
   margin-top: 10px;
   line-height: 1.4;
 }
 
 .card {
   margin-top: 30px;
-  background: white;
+  background: var(--surface);
   padding: 24px;
   border-radius: 20px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .label {
   font-size: 13px;
   font-weight: 700;
-  color: #777;
+  color: var(--muted);
   margin-bottom: 10px;
 }
 
@@ -86,10 +137,22 @@ input {
   width: 100%;
   height: 52px;
   border-radius: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-2);
   padding: 0 16px;
   font-size: 16px;
   outline: none;
+  background: var(--surface-2);
+  color: var(--text);
+  transition: all 0.25s ease;
+}
+
+input::placeholder {
+  color: var(--muted);
+}
+
+input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(10,102,194,0.15);
 }
 
 button.primary {
@@ -98,24 +161,30 @@ button.primary {
   height: 48px;
   border-radius: 999px;
   border: none;
-  background: #0a66c2;
+  background: var(--blue);
   color: white;
   font-weight: bold;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button.primary:hover {
+  background: var(--blue-hover);
 }
 
 .result {
   display: none;
   margin-top: 20px;
-  background: white;
+  background: var(--surface);
   padding: 24px;
   border-radius: 20px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .result-label {
   font-size: 12px;
-  color: #0a66c2;
+  color: var(--blue);
   font-weight: bold;
   margin-bottom: 10px;
 }
@@ -124,11 +193,13 @@ button.primary {
   font-size: 28px;
   font-weight: 800;
   line-height: 1.3;
+  color: var(--text);
 }
 
 .result-text.typing::after {
   content: "|";
   margin-left: 4px;
+  color: var(--blue);
   animation: blink 1s infinite;
 }
 
@@ -146,9 +217,16 @@ button.primary {
 .secondary {
   padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid #ccc;
-  background: white;
+  border: 1px solid var(--border-2);
+  background: var(--surface);
+  color: var(--text);
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.secondary:hover {
+  border-color: var(--blue);
+  color: var(--blue);
 }
 
 .examples {
@@ -167,12 +245,42 @@ button.primary {
 .chip {
   padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid #ccc;
-  background: white;
+  border: 1px solid var(--border-2);
+  background: var(--chip-bg);
+  color: var(--chip-text);
   cursor: pointer;
   font-size: 14px;
+  transition: all 0.2s ease;
 }
 
+.chip:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    padding: 0 16px;
+  }
+
+  .top-actions {
+    gap: 6px;
+  }
+
+  .top-action,
+  .theme-toggle {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  .result-text {
+    font-size: 24px;
+  }
+}
 </style>
 </head>
 
@@ -183,7 +291,11 @@ button.primary {
     <div class="brand-icon">🎁</div>
     Tradutor de Benefícios Arrombados
   </div>
-  <div class="top-action" onclick="compartilhar()">Compartilhar</div>
+
+  <div class="top-actions">
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙 Dark mode</button>
+    <button class="top-action" onclick="compartilhar()">Compartilhar</button>
+  </div>
 </div>
 
 <div class="page">
@@ -198,7 +310,7 @@ button.primary {
   <div class="card">
     <div class="label">BENEFÍCIO CORPORATIVO</div>
     <input id="input" placeholder="Ex: Happy hour mensal">
-    <button class="primary" onclick="gerar()">Gerar</button>
+    <button class="primary" onclick="gerar()">Traduzir</button>
   </div>
 
   <div class="result" id="result">
@@ -209,7 +321,6 @@ button.primary {
   <div class="actions" id="actions">
     <button class="secondary" onclick="copiar()">Copiar</button>
     <button class="secondary" onclick="linkedin()">LinkedIn</button>
-    <button class="secondary" onclick="gerarOutra()">Outra</button>
   </div>
 
   <div class="examples">
@@ -236,14 +347,36 @@ const exemplos = [
   "1h de day off no aniversário",
   "Fruta no escritório",
   "Dress code flexível",
-  "Massagem mensal",
+  "Massagem uma vez por mês",
   "Short friday no verão",
   "Cerveja no fim do expediente",
   "Sala de descompressão"
 ];
 
-let ultimoInput = "";
 let textoFinal = "";
+
+function aplicarTemaSalvo() {
+  const tema = localStorage.getItem("tema");
+
+  if (tema === "dark") {
+    document.body.classList.add("dark");
+    document.getElementById("themeToggle").innerText = "☀️ Light mode";
+  } else {
+    document.body.classList.remove("dark");
+    document.getElementById("themeToggle").innerText = "🌙 Dark mode";
+  }
+}
+
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+
+  const isDark = document.body.classList.contains("dark");
+
+  localStorage.setItem("tema", isDark ? "dark" : "light");
+  document.getElementById("themeToggle").innerText = isDark
+    ? "☀️ Light mode"
+    : "🌙 Dark mode";
+}
 
 function sortear() {
   return respostas[Math.floor(Math.random() * respostas.length)];
@@ -272,21 +405,12 @@ function gerar() {
   const input = document.getElementById("input").value.trim();
   if (!input) return;
 
-  ultimoInput = input;
   const resposta = sortear();
-
   textoFinal = `${input} 🟰 ${resposta}`;
 
   document.getElementById("result").style.display = "block";
   document.getElementById("actions").style.display = "flex";
 
-  typeText(document.getElementById("resultText"), resposta);
-}
-
-function gerarOutra() {
-  if (!ultimoInput) return;
-  const resposta = sortear();
-  textoFinal = `${ultimoInput} 🟰 ${resposta}`;
   typeText(document.getElementById("resultText"), resposta);
 }
 
@@ -296,11 +420,13 @@ function usar(txt) {
 }
 
 function copiar() {
+  if (!textoFinal) return;
   navigator.clipboard.writeText(textoFinal);
   alert("Copiado");
 }
 
 function linkedin() {
+  if (!textoFinal) return;
   window.open("https://www.linkedin.com/feed/?shareActive=true&text=" + encodeURIComponent(textoFinal));
 }
 
@@ -322,6 +448,7 @@ function renderExemplos() {
 }
 
 renderExemplos();
+aplicarTemaSalvo();
 </script>
 
 </body>
