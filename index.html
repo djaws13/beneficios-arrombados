@@ -21,20 +21,21 @@
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       background: var(--bg);
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
       padding: 24px;
+      color: var(--text);
     }
 
     .card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
-      max-width: 700px;
+      max-width: 720px;
       width: 100%;
       padding: 32px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.08);
@@ -50,18 +51,20 @@
     h1 {
       margin: 0 0 8px;
       font-size: 36px;
+      line-height: 1.05;
     }
 
     .sub {
       color: var(--muted);
       margin-bottom: 24px;
       font-size: 16px;
+      line-height: 1.5;
     }
 
     input {
       width: 100%;
       padding: 16px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid #cfd9e3;
       font-size: 16px;
       margin-bottom: 12px;
@@ -70,20 +73,27 @@
     input:focus {
       border-color: var(--blue);
       outline: none;
+      box-shadow: 0 0 0 4px rgba(10,102,194,0.12);
     }
 
-    button {
+    .primary-btn,
+    .secondary-btn {
       width: 100%;
-      padding: 14px;
+      padding: 14px 16px;
       border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-size: 15px;
+    }
+
+    .primary-btn {
       border: none;
       background: var(--blue);
       color: white;
-      font-weight: bold;
-      cursor: pointer;
     }
 
-    button:hover {
+    .primary-btn:hover {
       background: var(--blue-dark);
     }
 
@@ -92,38 +102,198 @@
       margin-top: 24px;
       padding: 20px;
       background: var(--blue-soft);
-      border-radius: 12px;
+      border-radius: 16px;
+      border: 1px solid #cfe5ff;
     }
 
     .badge {
-      font-weight: bold;
+      display: inline-block;
+      font-weight: 700;
       color: var(--blue);
-      margin-bottom: 10px;
+      background: white;
+      border: 1px solid #cfe5ff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      line-height: 1.35;
     }
 
     .result {
-      font-size: 20px;
-      font-weight: bold;
+      font-size: 24px;
+      line-height: 1.35;
+      font-weight: 800;
+      letter-spacing: -0.02em;
     }
 
     .actions {
-      margin-top: 15px;
+      margin-top: 18px;
       display: none;
       gap: 10px;
       flex-wrap: wrap;
     }
 
-    .secondary {
+    .secondary-btn {
       flex: 1;
       border: 1px solid var(--blue);
       background: white;
       color: var(--blue);
     }
+
+    .secondary-btn:hover {
+      background: #f7fbff;
+    }
+
+    .note {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .story-stage {
+      position: fixed;
+      left: -99999px;
+      top: 0;
+      width: 1080px;
+      height: 1920px;
+      background: linear-gradient(180deg, #0a66c2 0%, #378fe9 100%);
+      overflow: hidden;
+    }
+
+    .story {
+      width: 1080px;
+      height: 1920px;
+      padding: 88px 72px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .story::before {
+      content: "";
+      position: absolute;
+      inset: 28px;
+      border-radius: 48px;
+      border: 2px solid rgba(255,255,255,0.18);
+      pointer-events: none;
+    }
+
+    .story-top {
+      position: relative;
+      z-index: 1;
+    }
+
+    .story-kicker {
+      display: inline-block;
+      padding: 14px 20px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.22);
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin-bottom: 30px;
+    }
+
+    .story-title {
+      font-size: 84px;
+      line-height: 0.95;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      margin: 0 0 34px;
+      max-width: 900px;
+    }
+
+    .story-benefit {
+      display: inline-block;
+      max-width: 880px;
+      padding: 22px 28px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 40px;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    .story-middle {
+      position: relative;
+      z-index: 1;
+      margin: 70px 0;
+    }
+
+    .story-label {
+      font-size: 24px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.85;
+      margin-bottom: 24px;
+    }
+
+    .story-result {
+      font-size: 76px;
+      line-height: 1.08;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      max-width: 920px;
+      word-break: break-word;
+    }
+
+    .story-bottom {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .story-footer {
+      font-size: 28px;
+      line-height: 1.35;
+      max-width: 640px;
+      opacity: 0.95;
+    }
+
+    .story-brand {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-align: right;
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        padding: 24px;
+      }
+
+      .topbar {
+        margin: -24px -24px 20px -24px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .result {
+        font-size: 21px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .secondary-btn {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 
 <body>
-
   <div class="card">
     <div class="topbar"></div>
 
@@ -133,20 +303,53 @@
       Escreva um benefício corporativo. A gente traduz sem filtro.
     </p>
 
-    <input id="input" placeholder="Ex: 1h de day off no aniversário" />
-    <button onclick="gerar()">Gerar</button>
+    <input
+      id="input"
+      placeholder="Ex: 1h de day off no aniversário"
+      onkeydown="if(event.key === 'Enter') gerar()"
+    />
+
+    <button class="primary-btn" onclick="gerar()">Gerar</button>
 
     <div class="output" id="output">
       <div class="badge" id="badge"></div>
       <div class="result" id="result"></div>
 
       <div class="actions" id="actions">
-        <button class="secondary" onclick="copiar()">Copiar</button>
-        <button class="secondary" onclick="linkedin()">Postar no LinkedIn</button>
+        <button class="secondary-btn" onclick="copiar()">Copiar</button>
+        <button class="secondary-btn" onclick="linkedin()">Postar no LinkedIn</button>
+        <button class="secondary-btn" onclick="gerarImagem()">Gerar imagem</button>
+      </div>
+
+      <div class="note">
+        O botão “Gerar imagem” baixa um PNG em formato vertical de Stories.
       </div>
     </div>
   </div>
 
+  <div class="story-stage">
+    <div class="story" id="storyCard">
+      <div class="story-top">
+        <div class="story-kicker">benefício corporativo, traduzido</div>
+        <h2 class="story-title">Gerador de Benefícios Arrombados</h2>
+        <div class="story-benefit" id="storyBenefit"></div>
+      </div>
+
+      <div class="story-middle">
+        <div class="story-label">tradução real</div>
+        <div class="story-result" id="storyResult"></div>
+      </div>
+
+      <div class="story-bottom">
+        <div class="story-footer">
+          Escreva um benefício corporativo. A gente traduz sem filtro.
+        </div>
+        <div class="story-brand">sem perfume institucional</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
     const respostas = [
       "Isso aqui é só exploração com filtro de LinkedIn.",
@@ -172,9 +375,11 @@
     ];
 
     let textoFinal = "";
+    let ultimoInput = "";
+    let ultimoResultado = "";
 
     function gerar() {
-      const input = document.getElementById("input").value;
+      const input = document.getElementById("input").value.trim();
 
       if (!input) {
         alert("Digite algo.");
@@ -183,6 +388,8 @@
 
       const random = respostas[Math.floor(Math.random() * respostas.length)];
 
+      ultimoInput = input;
+      ultimoResultado = random;
       textoFinal = `${input}\n\n👉 ${random}`;
 
       document.getElementById("output").style.display = "block";
@@ -200,7 +407,34 @@
       const url = "https://www.linkedin.com/feed/?shareActive=true&text=" + encodeURIComponent(textoFinal);
       window.open(url, "_blank");
     }
-  </script>
 
+    async function gerarImagem() {
+      if (!ultimoInput || !ultimoResultado) {
+        alert("Gere uma resposta primeiro.");
+        return;
+      }
+
+      document.getElementById("storyBenefit").innerText = ultimoInput;
+      document.getElementById("storyResult").innerText = ultimoResultado;
+
+      const story = document.getElementById("storyCard");
+
+      try {
+        const canvas = await html2canvas(story, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: null
+        });
+
+        const link = document.createElement("a");
+        link.download = "beneficio-arrombado-story.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      } catch (error) {
+        alert("Não consegui gerar a imagem.");
+        console.error(error);
+      }
+    }
+  </script>
 </body>
 </html>
